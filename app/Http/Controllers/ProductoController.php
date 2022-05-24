@@ -6,6 +6,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -43,6 +44,35 @@ class ProductoController extends Controller
      */
     public function store(Request $r)
     {
+        //reglas de validacion
+        $reglas = [
+            "nombre" => 'required|alpha',
+            "desc" => 'required|min:5|max:50',
+            "precio" => 'required|numeric',
+            "marca" => 'required',
+            "categoria" => 'required'
+        ];
+        //mensajes personalizados por regla 
+        $mensajes =[
+            "required" => "Campo obligatorio",
+            "min" => "minimo 5 caracteres",
+            "max" => "maximo 50 caracteres",
+            "numeric" => "solo numeros",
+            "alpha" => "solo letras"
+        ];
+        //crear el objeto validadir 
+        $v = Validator::make($r->all(), $reglas, $mensajes );
+        //validar los datos : metodo fails()
+        //metodo fails() : retorna true, en caso de que la validacon falle y retorna falso en caso de validacion correcta 
+        if($v->fails()){
+                //validacion falla 
+                //redirecciono a formulario nuevo producto  
+                return redirect('productos/create')
+                    ->withErrors($v)
+                    ->withInput();
+        }else{
+        //validacion correcta 
+
         //crear entidad producto:
         $p = new Producto;
        //asignar valores a atributos
@@ -54,7 +84,14 @@ class ProductoController extends Controller
        $p->categoria_id = $r->categoria;
        //grabar en base de datos el nuevo producto 
        $p->save();
-       echo "producto creado";
+      // redireccionar a la ruta : create 
+      //levando datos de sesion
+      return redirect('productos/create')
+                        ->with('mensaje', 'Producto registrado');
+        
+        }
+
+      
     }
 
     /**
