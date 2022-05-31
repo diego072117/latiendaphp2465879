@@ -12,7 +12,8 @@
     
         <form class="col s8"
                 method="POST"
-                action="{{ url('productos') }}">
+                action="{{ url('productos') }}"
+                enctype="multipart/form-data">
                 @csrf
         <div class="row">
             <div class="input-field col s8">
@@ -87,6 +88,7 @@
                 </div>
                 <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
+                    <span class="deep-purple-text text-darken-1">{{ $errors->first('imagen') }}</span>
                 </div>
             </div>
         </div>

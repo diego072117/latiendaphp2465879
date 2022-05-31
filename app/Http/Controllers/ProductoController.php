@@ -46,11 +46,12 @@ class ProductoController extends Controller
     {
         //reglas de validacion
         $reglas = [
-            "nombre" => 'required|alpha',
+            "nombre" => 'required|alpha|unique:productos,nombre',
             "desc" => 'required|min:5|max:50',
             "precio" => 'required|numeric',
             "marca" => 'required',
-            "categoria" => 'required'
+            "categoria" => 'required',
+            "imagen" => 'required|image'
         ];
         //mensajes personalizados por regla 
         $mensajes =[
@@ -58,7 +59,9 @@ class ProductoController extends Controller
             "min" => "minimo 5 caracteres",
             "max" => "maximo 50 caracteres",
             "numeric" => "solo numeros",
-            "alpha" => "solo letras"
+            "alpha" => "solo letras",
+            "image" => "El campo imagen debe ser una imagen",
+            "unique"=> "Nombre de producto ya tomado"
         ];
         //crear el objeto validadir 
         $v = Validator::make($r->all(), $reglas, $mensajes );
@@ -71,6 +74,14 @@ class ProductoController extends Controller
                     ->withErrors($v)
                     ->withInput();
         }else{
+
+            //asignar a la variable nombre_archivo
+            $nombre_archivo = $r->imagen->getClientOriginalName();
+            $archivo = $r->imagen;
+            //mover el archivo en la carpeta public
+            $ruta = public_path().'/img';
+            $archivo->move($ruta, $nombre_archivo);
+
         //validacion correcta 
 
         //crear entidad producto:
@@ -80,6 +91,7 @@ class ProductoController extends Controller
        $p->nombre = $r->nombre;
        $p->desc = $r->desc;
        $p->precio = $r->precio;
+       $p->imagen = $nombre_archivo;
        $p->marca_id = $r->marca;
        $p->categoria_id = $r->categoria;
        //grabar en base de datos el nuevo producto 
@@ -93,7 +105,7 @@ class ProductoController extends Controller
 
       
     }
-
+    
     /**
      * Display the specified resource.
      *
