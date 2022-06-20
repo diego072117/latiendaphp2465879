@@ -3,7 +3,7 @@
 @section('contenido')
 
     <div class="row">
-        <h1>Catalogo de productos</h1>
+        <h1 class="deep-purple-text text-darken-1">Catalogo de productos</h1>
     </div>
     @foreach($productos as $producto)
         <di class="row" style="display: inline-block">
@@ -17,14 +17,14 @@
                         @endif
                         
                             <span 
-                                 class="card-title">{{ $producto->nombre }}
+                                 class="card-title ">{{ $producto->nombre }}
                             </span>
                     </div>
                     <div class="card-content">
                         <p>{{ $producto->desc }}</p>
                     </div>
                     <div class="card-action">
-                        <a href="{{ route('productos.show' , $producto->id) }}">Ver detalles</a>
+                        <a href="{{ route('productos.show' , $producto->id) }}" class="deep-purple-text text-darken-1">Ver detalles</a>
                     </div>
                 </div>
             </div>
