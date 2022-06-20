@@ -6,9 +6,9 @@
         <h1>Catalogo de productos</h1>
     </div>
     @foreach($productos as $producto)
-        <di class="row">
-            <div class="col s3 grey darken-4">
-                <div class="card grey lighten-4">
+        <di class="row" style="display: inline-block">
+            <div class="col grey darken-4">
+                <div class="card grey lighten-4" style="height:400px; width:400px">
                     <div class="card-image">
                         @if($producto->imagen===null)
                             <img src="{{ asset('img/not.jpg'  ) }}" alt="">

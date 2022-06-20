@@ -9,7 +9,7 @@
         <div class="col s8">
             <p>Marca: {{ $producto->marca->nombre }}</p>
             <ul>
-                <li>Precio: US{{ $producto->precio }}</li>
+                <li>Precio: US {{ $producto->precio }}</li>
                 <li>Descripcion: {{ $producto->desc }}</li>
                 <li>Categoria: {{ $producto->categoria->nombre }}</li>
                 <li><img src="{{ asset('img/'.$producto->imagen) }}" alt="" width="500px"></li>
