@@ -2,11 +2,21 @@
 
 @section('contenido')
 
+    @if(session('mensajito'))
+        <div class="row">
+            <strong>
+                {{ session('mensajito') }}
+                <a href="{{ route('cart.index') }}">
+                    Ir a lcarrito
+                </a>
+            </strong>
+        </div>
+    @endif
     <div class="row">
         <h1 class="deep-purple-text text-darken-1">Catalogo de productos</h1>
     </div>
     @foreach($productos as $producto)
-        <di class="row" style="display: inline-block">
+        <div class="row" style="display: inline-block">
             <div class="col grey darken-4">
                 <div class="card grey lighten-4" style="height:400px; width:400px">
                     <div class="card-image">
@@ -17,7 +27,7 @@
                         @endif
                         
                             <span 
-                                 class="card-title ">{{ $producto->nombre }}
+                                 class="card-title  ">{{ $producto->nombre }}
                             </span>
                     </div>
                     <div class="card-content">

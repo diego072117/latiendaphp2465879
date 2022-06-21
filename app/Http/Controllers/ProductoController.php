@@ -51,7 +51,7 @@ class ProductoController extends Controller
         //reglas de validacion
         $reglas = [
             "nombre" => 'required|alpha|unique:productos,nombre',
-            "desc" => 'required|min:5|max:50',
+            "desc" => 'required|min:5|max:500',
             "precio" => 'required|numeric',
             "marca" => 'required',
             "categoria" => 'required',
@@ -61,7 +61,7 @@ class ProductoController extends Controller
         $mensajes =[
             "required" => "Campo obligatorio",
             "min" => "minimo 5 caracteres",
-            "max" => "maximo 50 caracteres",
+            "max" => "maximo 500 caracteres",
             "numeric" => "solo numeros",
             "alpha" => "solo letras",
             "image" => "El campo imagen debe ser una imagen",
